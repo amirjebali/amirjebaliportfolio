@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { site } from '../../data/site';
-import { categories, getWorks, tc, years, href, workHref, embedUrl, stillUrl, type Work } from '../../lib/works';
+import { categories, getWorks, tc, years, shortTitle, href, workHref, embedUrl, stillUrl, type Work } from '../../lib/works';
 
 export async function getStaticPaths() {
   const works = await getWorks();
@@ -31,6 +31,7 @@ const embed = embedUrl(work);
 const still = stillUrl(work);
 const category = categories.find((c) => c.key === d.category)!.label;
 const description = d.description ?? `${d.with}. ${d.role}.`;
+const [arW, arH] = (d.video?.aspect ?? '16/9').split('/');
 ---
 
 <Base title={d.title} description={`${description} ${site.name}: ${d.role}.`} image={still} theme="dark">
@@ -42,7 +43,7 @@ const description = d.description ?? `${d.with}. ${d.role}.`;
   </nav>
 
   <main>
-    <div class="screen">
+    <div class="screen" style={`--ar-w: ${arW}; --ar-h: ${arH}`}>
     <div class="frame">
       {embed ? (
         <iframe
@@ -73,7 +74,7 @@ const description = d.description ?? `${d.with}. ${d.role}.`;
 
     <section class="credits" aria-label="Credits">
       <div class="credits-title">
-        <h1>{d.title}</h1>
+        <h1>{shortTitle(work)}</h1>
         <p class="muted">{years(work)} · {category}</p>
         {d.description && <p class="muted">{d.description}</p>}
       </div>
@@ -115,9 +116,13 @@ const description = d.description ?? `${d.with}. ${d.role}.`;
 
   main { padding: 0 var(--margin) var(--s7); }
 
-  /* The film is as wide as the window allows while staying fully visible in height. */
-  .screen { width: min(100%, calc((100svh - 140px) * 16 / 9)); margin: 0 auto; }
-  .frame { aspect-ratio: 16 / 9; background: #1d1c1a; }
+  /* The film is as wide as the window allows while staying fully visible in height.
+     --ar-w / --ar-h come from the video's aspect ratio (16/9 unless set, 9/16 for vertical films). */
+  .screen {
+    width: min(100%, calc((100svh - 140px) * var(--ar-w) / var(--ar-h)));
+    margin: 0 auto;
+  }
+  .frame { aspect-ratio: var(--ar-w) / var(--ar-h); background: #1d1c1a; }
   .frame iframe { width: 100%; height: 100%; border: 0; display: block; }
   .frame-slate { height: 100%; padding: var(--s3) var(--s4); }
   .frame-slate .link { align-self: flex-start; }

@@ -73,7 +73,6 @@ const [arW, arH] = (d.video?.aspect ?? '16/9').split('/');
         {d.description && <p class="muted">{d.description}</p>}
       </div>
       <dl class="credits-list">
-        {!d.credits && (<><dt class="muted">With</dt><dd>{d.with}</dd></>)}
         {d.credits?.map((c) => (<><dt class="muted">{c.label}</dt><dd>{c.value}</dd></>))}
         <dt class="muted">Role</dt><dd>{d.role}</dd>
         {d.links?.length && (

@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import InfoPanel from '../components/InfoPanel.astro';
 import { site } from '../data/site';
-import { categories, getWorks, tc, years, shortTitle, workHref, stillUrl, href } from '../lib/works';
+import { getWorks, tc, years, shortTitle, workHref, stillUrl, href } from '../lib/works';
 
 const works = await getWorks();
 const first = Math.min(...works.map((w) => w.data.year));
@@ -16,13 +16,6 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
       <p class="muted hd-roles">{site.roles.map((r, i) => <span>{r}{i < site.roles.length - 1 && ' · '}</span>)}</p>
     </a>
 
-    <nav class="hd-filters" aria-label="Filter works">
-      <button type="button" data-filter="all" aria-pressed="true">All</button>
-      {categories.map((c) => (
-        <button type="button" data-filter={c.key} aria-pressed="false">{c.label}</button>
-      ))}
-    </nav>
-
     <button type="button" class="hd-info" data-open-info>Info</button>
   </header>
 
@@ -31,7 +24,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
       {works.map((w, i) => {
         const still = stillUrl(w);
         return (
-          <li data-category={w.data.category}>
+          <li>
             <a href={workHref(w)}>
               {still ? (
                 <img class="still" src={still} alt="" loading={i < 4 ? 'eager' : 'lazy'} decoding="async" />
@@ -41,7 +34,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
                 </div>
               )}
               <p class="cap">
-                <span class="c-title"><span class="muted g-tc">{tc(i)}</span> {shortTitle(w)}</span>
+                <span class="c-title"><span class="muted">{tc(i)}</span> {shortTitle(w)}</span>
                 <span class="muted">{years(w)}</span>
               </p>
               <p class="muted c-role">{w.data.role}</p>
@@ -53,7 +46,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   </main>
 
   <footer class="ft">
-    <p class="muted"><span id="count">{works.length}</span> works, {first}–{last}</p>
+    <p class="muted">{works.length} works, {first}–{last}</p>
   </footer>
 
   <InfoPanel />
@@ -74,12 +67,9 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   }
   .hd-name { grid-column: 1 / 4; }
   .hd-roles span { white-space: nowrap; }
-  .hd-filters { grid-column: 4 / 11; display: flex; flex-wrap: wrap; column-gap: 1.5ch; }
   .hd-info { grid-column: 11 / 13; justify-self: end; }
-
-  .hd button[aria-pressed='false'] { color: var(--muted); }
   @media (hover: hover) {
-    .hd button:hover, .hd-info:hover { color: var(--red); }
+    .hd-info:hover { color: var(--red); }
   }
 
   /* ---------- works grid ---------- */
@@ -96,7 +86,6 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   }
 
   main { padding-bottom: var(--s7); min-height: 70vh; }
-  [hidden] { display: none !important; }
 
   /* ---------- footer ---------- */
   .ft {
@@ -114,51 +103,15 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   /* ---------- tablet ---------- */
   @media (max-width: 959px) {
     .hd-name { grid-column: 1 / 5; }
-    .hd-filters { grid-column: 5 / 11; }
     .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
   /* ---------- phone ---------- */
   @media (max-width: 599px) {
-    .hd { row-gap: var(--s3); }
-    .hd-name { grid-column: 1 / 10; grid-row: 1; }
-    .hd-info { grid-column: 10 / 13; grid-row: 1; }
-    .hd-filters {
-      grid-column: 1 / -1; grid-row: 2;
-      flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
-      margin: 0 calc(var(--margin) * -1); padding: 0 var(--margin);
-    }
-    .hd-filters button { white-space: nowrap; }
+    .hd-name { grid-column: 1 / 10; }
+    .hd-info { grid-column: 10 / 13; }
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s4) var(--gutter); }
     /* Narrow tiles: let titles and roles wrap instead of cutting them off. */
     .c-title, .c-role { white-space: normal; }
   }
 </style>
-
-<script>
-  const items = document.querySelectorAll<HTMLLIElement>('#works li[data-category]');
-  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-  const countEl = document.getElementById('count')!;
-
-  /* ---------- filters (kept in the URL so a filtered index can be shared) ---------- */
-  function setFilter(key: string) {
-    if (![...filterButtons].some((b) => b.dataset.filter === key)) key = 'all';
-    filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === key)));
-    // Number the visible works from 00:00.
-    let shown = 0;
-    items.forEach((li) => {
-      const match = key === 'all' || li.dataset.category === key;
-      li.hidden = !match;
-      if (!match) return;
-      const code = `00:${String(shown++).padStart(2, '0')}`;
-      li.querySelectorAll<HTMLElement>('.g-tc, .slate-tc').forEach((el) => (el.textContent = code));
-    });
-    countEl.textContent = String(shown);
-    const url = new URL(location.href);
-    if (key === 'all') url.searchParams.delete('f');
-    else url.searchParams.set('f', key);
-    history.replaceState(null, '', url);
-  }
-  filterButtons.forEach((b) => b.addEventListener('click', () => setFilter(b.dataset.filter!)));
-  setFilter(new URL(location.href).searchParams.get('f') ?? 'all');
-</script>

@@ -13,8 +13,7 @@ export const site = {
   ],
   education: ['IAD, Belgium', 'ISAMM, Tunisia'],
   email: 'amirjebalipr@gmail.com',
-  // Add { label: 'Instagram', url: 'https://www.instagram.com/<handle>/' } once Amir sends his profile address.
-  socials: [] as { label: string; url: string }[],
+  socials: [{ label: 'Instagram', url: 'https://www.instagram.com/amir.jebali_mm/' }],
   // Put the CV at public/cv.pdf, then set this to 'cv.pdf'.
   cv: undefined as string | undefined,
 };

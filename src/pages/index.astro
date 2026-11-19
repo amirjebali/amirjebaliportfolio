@@ -69,7 +69,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
                   <span class="slate-tc">{tc(i)}</span>
                 </div>
               )}
-              <p><span class="c-title"><span class="muted">{tc(i)}</span> {shortTitle(w)}</span> <span class="muted">{years(w)}</span></p>
+              <p><span class="c-title"><span class="muted g-tc">{tc(i)}</span> {shortTitle(w)}</span> <span class="muted">{years(w)}</span></p>
             </a>
           </li>
         );
@@ -229,13 +229,20 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   function setFilter(key: string) {
     if (![...filterButtons].some((b) => b.dataset.filter === key)) key = 'all';
     filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === key)));
-    let shown = 0;
+    // Number the visible works from 00:00, separately in the list and the Images view.
+    const next = { list: 0, grid: 0 };
     items.forEach((li) => {
       const match = key === 'all' || li.dataset.category === key;
       li.hidden = !match;
-      if (match && li.closest('.list')) shown++;
+      if (!match) return;
+      const view = li.closest('.list') ? 'list' : 'grid';
+      const code = `00:${String(next[view]++).padStart(2, '0')}`;
+      li.querySelectorAll<HTMLElement>('.tc-full, .g-tc, .slate-tc').forEach((el) => (el.textContent = code));
+      li.querySelectorAll<HTMLElement>('.tc-short').forEach((el) => (el.textContent = code.slice(-2)));
+      const row = li.querySelector<HTMLElement>('[data-tc]');
+      if (row) row.dataset.tc = code;
     });
-    countEl.textContent = String(shown);
+    countEl.textContent = String(next.list);
     const url = new URL(location.href);
     if (key === 'all') url.searchParams.delete('f');
     else url.searchParams.set('f', key);

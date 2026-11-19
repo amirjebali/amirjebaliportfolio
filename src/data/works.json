@@ -1,52 +1,15 @@
 [
   {
-    "id": "woodstock-new-age-2026",
-    "title": "New Age Festival 2026",
-    "category": "post",
-    "year": 2026,
-    "with": "Promotional film",
-    "role": "Direction, picture and sound edit",
-    "video": { "provider": "drive", "id": "1T-sqXBN1ZSAtjRl6OnyRDyvA1lrPNyam", "aspect": "9/16" },
-    "still": "woodstock-new-age-2026.webp"
-  },
-  {
-    "id": "leskimo-renseignement",
-    "title": "Leskimo — Renseignement",
-    "category": "music",
-    "year": 2026,
-    "with": "Music video",
-    "role": "Picture edit",
-    "video": { "provider": "youtube", "id": "80rzGIfbWjc" },
-    "still": "leskimo-renseignement.webp"
-  },
-  {
-    "id": "woodstock-new-age-2025",
-    "title": "New Age Festival 2025",
-    "category": "post",
-    "year": 2025,
-    "with": "Promotional film",
-    "role": "Direction, picture and sound edit",
-    "video": { "provider": "drive", "id": "1xM4bHPZQN7fYMwY06hkWN4omsZcGSqPZ" },
-    "still": "woodstock-new-age-2025.webp"
-  },
-  {
-    "id": "infinit-888-freestyle",
-    "title": "Infinit — 888 Freestyle",
-    "category": "music",
-    "year": 2024,
-    "with": "Music video",
-    "role": "Direction, picture edit",
-    "video": { "provider": "youtube", "id": "4ZxT3O9244A" },
-    "still": "infinit-888-freestyle.webp"
-  },
-  {
     "id": "huntrill-le-biff-et-moi",
     "title": "Huntrill — Le Biff et moi",
     "category": "music",
     "year": 2024,
     "with": "Music video",
     "role": "Direction, picture edit",
-    "video": { "provider": "youtube", "id": "93uy5ysV6XA" },
+    "video": {
+      "provider": "youtube",
+      "id": "93uy5ysV6XA"
+    },
     "still": "huntrill-le-biff-et-moi.webp"
   },
   {
@@ -56,8 +19,103 @@
     "year": 2024,
     "with": "Music video",
     "role": "Additional picture edit",
-    "video": { "provider": "youtube", "id": "Uew4Y08W_6s" },
+    "video": {
+      "provider": "youtube",
+      "id": "Uew4Y08W_6s"
+    },
     "still": "veust-fitness-park.webp"
+  },
+  {
+    "id": "infinit-888-freestyle",
+    "title": "Infinit — 888 Freestyle",
+    "category": "music",
+    "year": 2024,
+    "with": "Music video",
+    "role": "Direction, picture edit",
+    "video": {
+      "provider": "youtube",
+      "id": "4ZxT3O9244A"
+    },
+    "still": "infinit-888-freestyle.webp"
+  },
+  {
+    "id": "leskimo-renseignement",
+    "title": "Leskimo — Renseignement",
+    "category": "music",
+    "year": 2026,
+    "with": "Music video",
+    "role": "Picture edit",
+    "video": {
+      "provider": "youtube",
+      "id": "80rzGIfbWjc"
+    },
+    "still": "leskimo-renseignement.webp"
+  },
+  {
+    "id": "woodstock-new-age-2026",
+    "title": "New Age Festival 2026",
+    "category": "post",
+    "year": 2026,
+    "with": "Promotional film",
+    "role": "Direction, picture and sound edit",
+    "video": {
+      "provider": "drive",
+      "id": "1T-sqXBN1ZSAtjRl6OnyRDyvA1lrPNyam",
+      "aspect": "9/16"
+    },
+    "still": "woodstock-new-age-2026.webp"
+  },
+  {
+    "id": "woodstock-new-age-2025",
+    "title": "New Age Festival 2025",
+    "category": "post",
+    "year": 2025,
+    "with": "Promotional film",
+    "role": "Direction, picture and sound edit",
+    "video": {
+      "provider": "drive",
+      "id": "1xM4bHPZQN7fYMwY06hkWN4omsZcGSqPZ"
+    },
+    "still": "woodstock-new-age-2025.webp"
+  },
+  {
+    "id": "ktyb-infrared",
+    "title": "KTYB — Infrared",
+    "category": "music",
+    "year": 2023,
+    "with": "Music video",
+    "role": "Direction, picture edit",
+    "video": {
+      "provider": "youtube",
+      "id": "Mr0Sdxl--iM"
+    },
+    "still": "ktyb-infrared.webp"
+  },
+  {
+    "id": "ktyb-mestwi",
+    "title": "KTYB — Mestwi",
+    "category": "music",
+    "year": 2023,
+    "with": "Music video",
+    "role": "Picture edit",
+    "video": {
+      "provider": "youtube",
+      "id": "szxqyQhz8OE"
+    },
+    "still": "ktyb-mestwi.webp"
+  },
+  {
+    "id": "ktyb-anaman",
+    "title": "KTYB — ANAMAN",
+    "category": "music",
+    "year": 2022,
+    "with": "Music video",
+    "role": "Direction, picture edit",
+    "video": {
+      "provider": "youtube",
+      "id": "IYLmmG_IBqI"
+    },
+    "still": "ktyb-anaman.webp"
   },
   {
     "id": "tribute-to-halim-el-dabh",
@@ -66,7 +124,10 @@
     "year": 2023,
     "with": "Audiovisual piece",
     "role": "Picture and sound edit",
-    "video": { "provider": "drive", "id": "192RPbmYAA-FyvoY853OpkY5DLBLY5Z_b" },
+    "video": {
+      "provider": "drive",
+      "id": "192RPbmYAA-FyvoY853OpkY5DLBLY5Z_b"
+    },
     "still": "tribute-to-halim-el-dabh.webp"
   },
   {
@@ -76,38 +137,11 @@
     "year": 2023,
     "with": "Audiovisual piece",
     "role": "Picture and sound edit",
-    "video": { "provider": "drive", "id": "1AERGrTER1X-_iHy235_ljtAr1fAvFivg" },
+    "video": {
+      "provider": "drive",
+      "id": "1AERGrTER1X-_iHy235_ljtAr1fAvFivg"
+    },
     "still": "tribute-to-osho.webp"
-  },
-  {
-    "id": "ktyb-mestwi",
-    "title": "KTYB — Mestwi",
-    "category": "music",
-    "year": 2023,
-    "with": "Music video",
-    "role": "Picture edit",
-    "video": { "provider": "youtube", "id": "szxqyQhz8OE" },
-    "still": "ktyb-mestwi.webp"
-  },
-  {
-    "id": "ktyb-infrared",
-    "title": "KTYB — Infrared",
-    "category": "music",
-    "year": 2023,
-    "with": "Music video",
-    "role": "Direction, picture edit",
-    "video": { "provider": "youtube", "id": "Mr0Sdxl--iM" },
-    "still": "ktyb-infrared.webp"
-  },
-  {
-    "id": "ktyb-anaman",
-    "title": "KTYB — ANAMAN",
-    "category": "music",
-    "year": 2022,
-    "with": "Music video",
-    "role": "Direction, picture edit",
-    "video": { "provider": "youtube", "id": "IYLmmG_IBqI" },
-    "still": "ktyb-anaman.webp"
   },
   {
     "id": "60-waiting-shots-and-a-shot",
@@ -118,12 +152,30 @@
     "role": "Picture edit",
     "description": "Observational documentary, about 20 minutes. Graduation film at ISAMM, Tunisia.",
     "credits": [
-      { "label": "Director", "value": "Youssef Sanheji" },
-      { "label": "School", "value": "ISAMM, Tunisia" },
-      { "label": "Length", "value": "~20 min" }
+      {
+        "label": "Director",
+        "value": "Youssef Sanheji"
+      },
+      {
+        "label": "School",
+        "value": "ISAMM, Tunisia"
+      },
+      {
+        "label": "Length",
+        "value": "~20 min"
+      }
     ],
-    "video": { "provider": "vimeo", "id": "286436474", "protected": true },
-    "links": [{ "label": "IMDb", "url": "https://www.imdb.com/title/tt12564740/" }],
+    "video": {
+      "provider": "vimeo",
+      "id": "286436474",
+      "protected": true
+    },
+    "links": [
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/title/tt12564740/"
+      }
+    ],
     "still": "60-waiting-shots-and-a-shot.webp"
   },
   {
@@ -135,11 +187,26 @@
     "role": "Picture edit",
     "description": "Experimental documentary, ISAMM, Tunisia.",
     "credits": [
-      { "label": "Directors", "value": "Youssef Sanheji, Mehdi Ben Rejeb" },
-      { "label": "School", "value": "ISAMM, Tunisia" }
+      {
+        "label": "Directors",
+        "value": "Youssef Sanheji, Mehdi Ben Rejeb"
+      },
+      {
+        "label": "School",
+        "value": "ISAMM, Tunisia"
+      }
     ],
-    "video": { "provider": "vimeo", "id": "244573107", "protected": true },
-    "links": [{ "label": "IMDb", "url": "https://www.imdb.com/title/tt12619184/" }],
+    "video": {
+      "provider": "vimeo",
+      "id": "244573107",
+      "protected": true
+    },
+    "links": [
+      {
+        "label": "IMDb",
+        "url": "https://www.imdb.com/title/tt12619184/"
+      }
+    ],
     "still": "aqua.webp"
   }
 ]

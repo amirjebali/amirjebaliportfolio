@@ -35,7 +35,7 @@ Everything is in `src/data/works.json`. One entry per work:
 - `category` is `film`, `post` (post-production and sound) or `music` (music videos).
 - `video.provider` is `youtube`, `vimeo` or `drive`. Add `"protected": true` for password-protected Vimeo videos.
 - **Never write a viewing password in this repository: it is public.**
-- Works are sorted newest first. Works from the same year keep the order they have in the file.
+- Works appear on the site in the same order as in the file. Move an entry up or down to reorder.
 - `still` is optional: put a 16:9 JPG in `public/stills/`. Without it, YouTube works use the YouTube thumbnail and the others show a slate.
 
 The build checks every entry and stops with a clear message if a field is missing or misspelled.

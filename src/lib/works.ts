@@ -9,12 +9,11 @@ export const categories = [
   { key: 'music', label: 'Music videos' },
 ] as const;
 
-/** All works, newest first. Works from the same year keep their order in works.json. */
+/** All works, in the order they appear in works.json (chosen by hand, not by year). */
 export async function getWorks(): Promise<Work[]> {
   const works = await getCollection('works');
   const order = new Map(source.map((w, i) => [w.id, i]));
-  const end = (w: Work) => w.data.yearEnd ?? w.data.year;
-  return works.sort((a, b) => end(b) - end(a) || order.get(a.id)! - order.get(b.id)!);
+  return works.sort((a, b) => order.get(a.id)! - order.get(b.id)!);
 }
 
 /** Index position as a short timecode: 4 -> "00:04". */

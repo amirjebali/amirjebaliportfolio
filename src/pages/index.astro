@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import InfoPanel from '../components/InfoPanel.astro';
 import { site } from '../data/site';
-import { categories, getWorks, tc, years, workHref, stillUrl, href } from '../lib/works';
+import { categories, getWorks, tc, years, shortTitle, workHref, stillUrl, href } from '../lib/works';
 
 const works = await getWorks();
 const first = Math.min(...works.map((w) => w.data.year));
@@ -13,7 +13,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   <header class="hd">
     <a class="hd-name" href={href()}>
       <h1>{site.name}</h1>
-      {site.roles.map((r) => <p class="muted">{r}</p>)}
+      <p class="muted hd-roles">{site.roles.map((r, i) => <span>{r}{i < site.roles.length - 1 && ' · '}</span>)}</p>
     </a>
 
     <nav class="hd-filters" aria-label="Filter works">
@@ -45,8 +45,8 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
               data-title={w.data.title}
               data-still={stillUrl(w)}
             >
-              <span class="c-tc" data-short={tc(i).slice(-2)}>{tc(i)}</span>
-              <span class="c-title">{w.data.title}</span>
+              <span class="c-tc"><span class="tc-full">{tc(i)}</span><span class="tc-short">{tc(i).slice(-2)}</span></span>
+              <span class="c-title">{shortTitle(w)}</span>
               <span class="c-with">{w.data.with}</span>
               <span class="c-role">{w.data.role}</span>
               <span class="c-year">{years(w)}</span>
@@ -69,7 +69,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
                   <span class="slate-tc">{tc(i)}</span>
                 </div>
               )}
-              <p><span class="c-title">{w.data.title}</span> <span class="muted">{years(w)}</span></p>
+              <p><span class="c-title"><span class="muted g-tc">{tc(i)}</span> {shortTitle(w)}</span> <span class="muted">{years(w)}</span></p>
             </a>
           </li>
         );
@@ -100,6 +100,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
     background: var(--paper);
   }
   .hd-name { grid-column: 1 / 4; }
+  .hd-roles span { white-space: nowrap; }
   .hd-filters { grid-column: 4 / 9; display: flex; flex-wrap: wrap; column-gap: 1.5ch; }
   .hd-views { grid-column: 9 / 11; }
   .hd-info { grid-column: 11 / 13; justify-self: end; }
@@ -119,6 +120,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   }
   .row > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .c-tc { grid-column: 1; }
+  .tc-short { display: none; }
   .c-title { grid-column: 2 / 6; }
   .c-with { grid-column: 6 / 9; }
   .c-role { grid-column: 9 / 12; }
@@ -206,8 +208,9 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
       column-gap: 1.5ch;
       padding: var(--s1) 0 var(--s2);
     }
-    .c-tc { grid-column: 1; grid-row: 1; font-size: 0; }
-    .c-tc::after { content: attr(data-short); font-size: var(--fs); color: var(--muted); }
+    .c-tc { grid-column: 1; grid-row: 1; color: var(--muted); }
+    .tc-full { display: none; }
+    .tc-short { display: inline; }
     .c-title { grid-column: 2; grid-row: 1; }
     .c-year { grid-column: 3; grid-row: 1; color: var(--muted); }
     .c-role { grid-column: 2 / 4; grid-row: 2; color: var(--muted); }
@@ -226,13 +229,20 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   function setFilter(key: string) {
     if (![...filterButtons].some((b) => b.dataset.filter === key)) key = 'all';
     filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === key)));
-    let shown = 0;
+    // Number the visible works from 00:00, separately in the list and the Images view.
+    const next = { list: 0, grid: 0 };
     items.forEach((li) => {
       const match = key === 'all' || li.dataset.category === key;
       li.hidden = !match;
-      if (match && li.closest('.list')) shown++;
+      if (!match) return;
+      const view = li.closest('.list') ? 'list' : 'grid';
+      const code = `00:${String(next[view]++).padStart(2, '0')}`;
+      li.querySelectorAll<HTMLElement>('.tc-full, .g-tc, .slate-tc').forEach((el) => (el.textContent = code));
+      li.querySelectorAll<HTMLElement>('.tc-short').forEach((el) => (el.textContent = code.slice(-2)));
+      const row = li.querySelector<HTMLElement>('[data-tc]');
+      if (row) row.dataset.tc = code;
     });
-    countEl.textContent = String(shown);
+    countEl.textContent = String(next.list);
     const url = new URL(location.href);
     if (key === 'all') url.searchParams.delete('f');
     else url.searchParams.set('f', key);

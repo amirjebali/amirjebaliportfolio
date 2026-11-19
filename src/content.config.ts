@@ -21,6 +21,8 @@ const works = defineCollection({
         provider: z.enum(['youtube', 'vimeo', 'drive']),
         id: z.string(),
         protected: z.boolean().optional(),
+        // Width/height of the video, e.g. "9/16" for a vertical film. Defaults to 16/9.
+        aspect: z.string().regex(/^\d+\/\d+$/).optional(),
       })
       .optional(),
     external: z.object({ label: z.string(), url: z.url() }).optional(),

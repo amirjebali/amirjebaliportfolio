@@ -22,6 +22,16 @@ export function tc(index: number): string {
   return `00:${String(index).padStart(2, '0')}`;
 }
 
+/**
+ * The title as shown next to the year column: a trailing year that repeats the
+ * work's year is dropped ("Woodstock New Age 2026" + "2026" -> "Woodstock New Age").
+ */
+export function shortTitle(w: Work): string {
+  const y = String(w.data.yearEnd ?? w.data.year);
+  const t = w.data.title;
+  return t.endsWith(` ${y}`) ? t.slice(0, -(y.length + 1)) : t;
+}
+
 export function years(w: Work): string {
   const { year, yearEnd } = w.data;
   return yearEnd ? `${year}–${String(yearEnd).slice(2)}` : String(year);

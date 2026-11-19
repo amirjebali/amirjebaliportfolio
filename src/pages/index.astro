@@ -33,7 +33,7 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   <main id="works" data-view="list">
     <div class="list">
       <div class="row row-head muted" aria-hidden="true">
-        <span>TC</span><span>Title</span><span class="c-with">With</span><span class="c-role">Role</span><span class="c-year">Year</span>
+        <span>TC</span><span>Title</span><span class="c-role">Role</span><span class="c-year">Year</span>
       </div>
       <ol>
         {works.map((w, i) => (
@@ -47,7 +47,6 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
             >
               <span class="c-tc"><span class="tc-full">{tc(i)}</span><span class="tc-short">{tc(i).slice(-2)}</span></span>
               <span class="c-title">{shortTitle(w)}</span>
-              <span class="c-with">{w.data.with}</span>
               <span class="c-role">{w.data.role}</span>
               <span class="c-year">{years(w)}</span>
             </a>
@@ -121,9 +120,8 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
   .row > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .c-tc { grid-column: 1; }
   .tc-short { display: none; }
-  .c-title { grid-column: 2 / 6; }
-  .c-with { grid-column: 6 / 9; }
-  .c-role { grid-column: 9 / 12; }
+  .c-title { grid-column: 2 / 8; }
+  .c-role { grid-column: 8 / 12; }
   .c-year { grid-column: 12; }
   .row-head { margin-bottom: var(--s2); }
 
@@ -182,9 +180,6 @@ const last = Math.max(...works.map((w) => w.data.yearEnd ?? w.data.year));
     .hd-filters { grid-column: 5 / 13; grid-row: 1; }
     .hd-views { grid-column: 5 / 10; grid-row: 2; margin-top: var(--s2); }
     .hd-info { grid-column: 10 / 13; grid-row: 2; margin-top: var(--s2); }
-    .c-with { display: none; }
-    .c-title { grid-column: 2 / 8; }
-    .c-role { grid-column: 8 / 12; }
     .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .preview { display: none; }
   }
